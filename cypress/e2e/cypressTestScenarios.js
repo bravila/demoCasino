@@ -1,4 +1,5 @@
 const { onHeaderBar } = require("../support/page_objects/Utils/headerBar");
+const { onLoginPage } = require("../support/page_objects/pages/loginPage");
 const { onRegistrationPage } = require("../support/page_objects/pages/registrationPage");
 
 Cypress.on('uncaught:exception', (err, runnable) => {
@@ -6,17 +7,18 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   });
 
   // Please when running execution write en unregistered email, you can use mailinator so you are able to use many emails
-  const email = 'bruno6@mailinator.com'
+  const email = 'bruno13@mailinator.com'
   const password = 'Control123$'
   const successMessageRegistration = ' Registration successfully finished! '
 
+  
+
 describe('Feature Registration', () =>{
-    
     beforeEach('open application', () => {
         cy.visit('', {failOnStatusCode: false})
         cy.get('.mfp-close').click()
     })
-
+    
     it('Validate I am able to register a user', () =>{
         onHeaderBar.clickSignUpButton()
         onRegistrationPage.fillEmail(email)
@@ -36,7 +38,21 @@ describe('Feature Registration', () =>{
         onRegistrationPage.clickCreateAccountButton()
         onRegistrationPage.errorMessageForRegisteredUserNotification('This email has been used for registration already. Please contact customer support.')
     })
+})
 
+describe('Feature Login', () => {
+
+    beforeEach('open application', () => {
+        cy.visit('', {failOnStatusCode: false})
+        cy.get('.mfp-close').click()
+    })
     
-}
-)
+    it('Validate I am able to login after registering', () => {
+        onHeaderBar.clickSignInButton()
+        onHeaderBar.clickSignInWrapperButton()
+        onLoginPage.fillEmailLogin(email)
+        onLoginPage.fillPasswordLogin(password)
+        onLoginPage.clickSignInLogin()
+        onHeaderBar.validateUserAvatar()
+    })
+})

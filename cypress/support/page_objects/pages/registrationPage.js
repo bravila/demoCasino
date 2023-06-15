@@ -11,32 +11,34 @@ export class RegistrationPage{
     }
 
     fillEmail(email){
-        cy.get(this.emailField).clear().type(email)
+        cy.get(this.emailField).clear().type(email).wait(2000)
     }
 
     checkAgreement(){
-        cy.get(this.agreementBox).click()
+        cy.get(this.agreementBox).click().wait(2000)
     }
 
     fillPasswordAndConfirmationFields(password){
-        cy.get(this.passwordField).clear().type(password)
+        cy.get(this.passwordField).clear().type(password).wait(2000)
         cy.get(this.passwordConfirmationField).clear().type(password)
+        .wait(2000)
     }
 
     checkNoBonus(){
-        cy.get(this.noBonusRadioButton).click()
+        cy.get(this.noBonusRadioButton).click().wait(5000)
     }
 
     clickCreateAccountButton(){
         cy.get(this.createAccountButton).click()
+        .wait(2000)
     }
 
     successRegistrationNotification(successMessageRegistration){
-        cy.get(this.registrationDescriptionNotification).should('contain', successMessageRegistration)
+        cy.get(this.registrationDescriptionNotification).should('contain', successMessageRegistration).wait(2000)
     }
 
     errorMessageForRegisteredUserNotification(errorAlreadyRegistered){
-        cy.get(this.errorMessageForRegisteredUser).should('contain', errorAlreadyRegistered)
+        cy.get(this.errorMessageForRegisteredUser).should('contain', errorAlreadyRegistered).wait(2000)
     }
 }
 
